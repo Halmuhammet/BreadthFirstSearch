@@ -51,7 +51,6 @@ class BreadthFirstSearch{
      * @param start Starting city/node
      * @param destination Target city/node
      * @return shortestRoute The traced shortest route from start to destination
-     *         of type Set<String>
      */
 
     public static Set<String> breadthFirstSearch(HashMap<String, ArrayDeque<String>> graph, String start, String destination){
