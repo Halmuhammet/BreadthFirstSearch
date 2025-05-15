@@ -1,7 +1,24 @@
+/**
+ * Title: Breadth First Search Algorithm
+ * @author Halmuhammet Muhamedorazov
+ * @since 15.05.2025
+ * @version 1.0
+ * Requirements: Java 8 or later needed for ArrayDeque, HashMap, and Set.
+ * Summary: Algorithm starts with adding the start node to the queue,
+ *          then, adds its direct neighbors to the back of the queue.
+ *          If none of the nodes is destination, then it adds the second degree neighbors
+ *          to the back of the queue. Same logic applies until any node is the destination.
+ *          If the destination is found, the program terminates and traces the path taken
+ *          to form the route. Since the edges has no weight, the resulting route is shortest.
+ */
+
+// import the needed libraries
 import java.util.*;
 class BreadthFirstSearch{
-   
     public static void main(String[] args){
+        
+        // Initialize the the nodes and their neighbors; Neighbors represented as ArrayDeque
+        // Using ArrayDeque is better choice than String array since we need to resize dynamically (pop())
         ArrayDeque<String> Ashgabat = new ArrayDeque<>(Arrays.asList("London", "Sydney"));
         ArrayDeque<String> London = new ArrayDeque<>(Arrays.asList("Houston", "New York"));
         ArrayDeque<String> Sydney = new ArrayDeque<>(Arrays.asList("Honolulu"));
@@ -12,6 +29,7 @@ class BreadthFirstSearch{
         ArrayDeque<String> NewYork = new ArrayDeque<>(Arrays.asList("San Francisco"));
         ArrayDeque<String> Honolulu = new ArrayDeque<>(Arrays.asList("Wellington"));
 
+        // Represent the directed graph as HashMap with Key-Value pairs
         HashMap<String, ArrayDeque<String>> graph = new HashMap<>();
         graph.put("Ashgabat", Ashgabat);
         graph.put("London", London);
@@ -22,10 +40,20 @@ class BreadthFirstSearch{
         graph.put("Nashville", Nashville);
         graph.put("New York", NewYork);
         graph.put("Honolulu", Honolulu);
-
+            
         Set<String> path = breadthFirstSearch(graph, "Ashgabat", "San Francisco");
         System.out.println(path);
     }
+
+    /**
+     * This function implements Breadth First Search Algorithm
+     * @param graph Graph representing nodes and edges
+     * @param start Starting city/node
+     * @param destination Target city/node
+     * @return shortestRoute The traced shortest route from start to destination
+     *         of type Set<String>
+     */
+
     public static Set<String> breadthFirstSearch(HashMap<String, ArrayDeque<String>> graph, String start, String destination){
         HashMap<String, String> path = new HashMap<>();
         Set<String> shortestRoute = new LinkedHashSet<>();
