@@ -6,8 +6,8 @@
  * Requirements: Java 8 or later needed for ArrayDeque, HashMap, and Set.
  * Summary: Algorithm starts with adding the start node to the queue,
  *          then, adds its direct neighbors to the back of the queue.
- *          If none of the nodes is destination, then it adds the second degree neighbors
- *          to the back of the queue. Same logic applies until any node is the destination.
+ *          If none of the nodes is the destination, then it adds the second degree neighbors
+ *          to the back of the queue. Same logic applies until it finds destination at any node.
  *          If the destination is found, the program terminates and traces the path taken
  *          to form the route. Since the edges has no weight, the resulting route is shortest.
  */
@@ -54,13 +54,18 @@ class BreadthFirstSearch{
      */
 
     public static Set<String> breadthFirstSearch(HashMap<String, ArrayDeque<String>> graph, String start, String destination){
-        HashMap<String, String> path = new HashMap<>();
+        // Initialize the shortestRoute set
         Set<String> shortestRoute = new LinkedHashSet<>();
-        List<String> visited = new ArrayList<>();
+        HashMap<String, String> path = new HashMap<>();
         String currentCity = start;
-        System.out.println(start);
+        // Initialize the path with starting node/city
         path.put("", currentCity);
+        System.out.println(start);
+        
+        // Declare and initialize the queue with starting node/city
         ArrayDeque<String> queue = graph.get(start);
+        // Make a visited list to keep track of cities visited to avoid infinite loop problem
+        List<String> visited = new ArrayList<>();
 
         while(!queue.isEmpty()){
             if(!visited.contains(currentCity)){
@@ -75,8 +80,11 @@ class BreadthFirstSearch{
                 System.out.println(nextCity + " ");
                 visited.add(currentCity);
                 currentCity = nextCity;
+            }else{
+                queue.pop();
             }
         }
+        System.out.println(path.values());
 
         return shortestRoute;
 
